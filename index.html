@@ -1,210 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mouwmilk Indonesia — Kemurnian Susu Segar untuk Keluarga</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.0.8/index.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.0.8/index.css" />
-<style>
-  :root{
-    --white:#FFFFFF;
-    --snow:#FAFBFD;
-    --pink-soft:#FFF0F7;
-    --pink:#FFD6E8;
-    --pink-mid:#FF8FC3;
-    --pink-deep:#FF5FA2;
-    --blue-soft:#EEF6FD;
-    --blue:#B8D8F2;
-    --blue-mid:#4A90D9;
-    --blue-deep:#2E6FB8;
-    --ink:#1F2937;
-    --ink-soft:#6B7280;
-    --border:#F0F2F5;
-  }
-  *{font-family:'Poppins',sans-serif;}
-  .serif{font-family:'Playfair Display',serif;}
-  body{background:var(--white);color:var(--ink);}
-  .page{display:none;animation:fadeIn .5s ease;}
-  .page.active{display:block;}
-  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-
-  .nav-link{position:relative;padding:.5rem 0;transition:color .3s;color:var(--ink-soft);font-weight:500;}
-  .nav-link::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--pink-deep);transition:width .3s;border-radius:2px;}
-  .nav-link:hover::after,.nav-link.active::after{width:100%;}
-  .nav-link.active{color:var(--ink);font-weight:600;}
-  .nav-link:hover{color:var(--ink);}
-
-  .btn-primary{background:var(--ink);color:#fff;padding:.85rem 2rem;border-radius:999px;transition:all .3s;display:inline-block;font-weight:500;text-align:center;}
-  .btn-primary:hover{background:var(--pink-deep);}
-  .btn-secondary{background:#fff;color:var(--ink);padding:.85rem 2rem;border-radius:999px;border:1.5px solid var(--border);transition:all .3s;display:inline-block;font-weight:500;text-align:center;}
-  .btn-secondary:hover{background:var(--pink-soft);border-color:var(--pink);}
-
-  .hero-bg{background:linear-gradient(135deg,var(--pink-soft) 0%,var(--white) 50%,var(--blue-soft) 100%);}
-  .about-bg{background:linear-gradient(135deg,var(--blue-soft) 0%,var(--white) 50%,var(--pink-soft) 100%);}
-
-  .product-card{background:#fff;border-radius:20px;overflow:hidden;transition:background .4s,border-color .4s;border:1px solid var(--border);}
-  .product-card:hover{background:var(--pink-soft);border-color:var(--pink);}
-  .product-card img{transition:transform .5s;}
-  .product-card:hover img{transform:scale(1.03);}
-
-  .stat-card{background:#fff;border-radius:20px;padding:2rem;text-align:center;transition:background .4s,border-color .4s;border:1px solid var(--border);}
-  .stat-card:hover{background:var(--blue-soft);border-color:var(--blue);}
-  .stat-num{font-size:3rem;font-weight:700;color:var(--ink);line-height:1;transition:color .4s;}
-  .stat-card:hover .stat-num{color:var(--blue-deep);}
-
-  .partner-logo{background:#fff;padding:1.5rem;border-radius:16px;display:flex;align-items:center;justify-content:center;height:80px;transition:background .4s,border-color .4s,color .4s;font-weight:600;color:var(--ink-soft);font-size:.9rem;text-align:center;border:1px solid var(--border);}
-  .partner-logo:hover{background:var(--pink-soft);border-color:var(--pink);color:var(--pink-deep);}
-
-  .testimonial-card{background:#fff;border-radius:20px;padding:2rem;transition:background .4s,border-color .4s;border:1px solid var(--border);}
-  .testimonial-card:hover{background:var(--blue-soft);border-color:var(--blue);}
-
-  .value-card{background:#fff;border-radius:20px;padding:2rem;text-align:center;transition:background .4s,border-color .4s;border:1px solid var(--border);}
-  .value-card:hover{background:var(--pink-soft);border-color:var(--pink);}
-
-  .step-card{background:#fff;border-radius:20px;padding:2rem;text-align:center;transition:background .4s,border-color .4s;border:1px solid var(--border);}
-  .step-card:hover{background:var(--blue-soft);border-color:var(--blue);}
-  .step-card:hover .step-num{background:var(--blue-deep);}
-  .step-num{width:50px;height:50px;background:var(--ink);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;margin:0 auto 1rem;transition:background .4s;}
-
-  .partnership-card{background:#fff;border-radius:20px;padding:2rem;transition:background .4s,border-color .4s;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between;}
-  .partnership-card:hover{background:var(--pink-soft);border-color:var(--pink);}
-  .partnership-card:hover .partnership-icon{background:var(--pink-deep);color:#fff;}
-  .partnership-icon{width:50px;height:50px;border-radius:16px;background:var(--pink-soft);color:var(--pink-deep);display:flex;align-items:center;justify-content:center;font-size:1.5rem;transition:background .4s,color .4s;margin-bottom:1.25rem;}
-
-  .contact-card{background:#fff;border-radius:16px;padding:1.25rem;transition:background .4s,border-color .4s;border:1px solid var(--border);}
-  .contact-card:hover{background:var(--blue-soft);border-color:var(--blue);}
-
-  .timeline-item{background:#fff;border-radius:20px;padding:1.75rem;transition:background .4s,border-color .4s;border:1px solid var(--border);position:relative;}
-  .timeline-item:hover{background:var(--pink-soft);border-color:var(--pink);}
-  .timeline-year{font-size:2.5rem;font-weight:700;line-height:1;background:linear-gradient(135deg,var(--pink-deep),var(--blue-deep));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-
-  /* ==================== STYLING MOBILE DRAWER RESPONSIVE ==================== */
-  /* Overlay dengan efek blur transparan di luar area drawer */
-  .mobile-menu-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(31, 41, 55, 0.4);
-    backdrop-filter: blur(4px);
-    z-index: 45;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .mobile-menu-overlay.open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Laci menu (drawer) yang meluncur mulus dari sisi kanan */
-  .mobile-menu-drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 290px;
-    background: var(--white);
-    z-index: 50;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.08);
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 1.75rem;
-  }
-  .mobile-menu-drawer.open {
-    transform: translateX(0);
-  }
-
-  /* Elemen link khusus di dalam menu drawer */
-  .mobile-nav-link {
-    transition: all 0.25s ease;
-    border-radius: 12px;
-  }
-  .mobile-nav-link:hover, .mobile-nav-link.active {
-    background-color: var(--pink-soft);
-    color: var(--pink-deep) !important;
-    padding-left: 1rem;
-  }
-
-  .mobile-menu-btn {
-    display: none;
-  }
-
-  @media(max-width:768px){
-    .desktop-nav {
-      display: none;
-    }
-    .mobile-menu-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  .nutrition-card{background:#fff;border-radius:16px;padding:1.25rem;transition:background .4s,border-color .4s;border:1px solid var(--border);}
-  .nutrition-card:hover{background:var(--blue-soft);border-color:var(--blue);}
-  .nutrition-bar{height:6px;border-radius:3px;background:var(--border);overflow:hidden;margin-top:.35rem;}
-  .nutrition-fill{height:100%;background:linear-gradient(90deg,var(--pink-deep),var(--blue-deep));border-radius:3px;}
-
-  .faq-item{background:#fff;border-radius:16px;margin-bottom:.75rem;overflow:hidden;transition:background .4s,border-color .4s;border:1px solid var(--border);}
-  .faq-item:hover{background:var(--pink-soft);border-color:var(--pink);}
-  .faq-question{padding:1.25rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;gap:1rem;}
-  .faq-answer{padding:0 1.5rem;max-height:0;overflow:hidden;transition:all .4s;}
-  .faq-item.open .faq-answer{padding:0 1.5rem 1.25rem;max-height:500px;}
-  .faq-item.open .faq-icon{transform:rotate(45deg);background:var(--pink-deep);color:#fff;}
-  .faq-icon{transition:all .3s;font-size:1.25rem;color:var(--ink);width:32px;height:32px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-
-  .form-input{width:100%;padding:.85rem 1.1rem;border:1.5px solid var(--border);border-radius:12px;transition:all .3s;font-family:inherit;background:#fff;}
-  .form-input:focus{outline:none;border-color:var(--pink-deep);box-shadow:0 0 0 4px rgba(255,95,162,.08);}
-
-  .carousel{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:1rem 0;-ms-overflow-style:none;scrollbar-width:none;}
-  .carousel::-webkit-scrollbar{display:none;}
-  .carousel-item{flex:0 0 320px;scroll-snap-align:start;}
-  @media(max-width:768px){.carousel-item{flex:0 0 280px;}}
-
-  .chip{display:inline-block;padding:.35rem .85rem;border-radius:999px;font-size:.75rem;font-weight:600;margin:.25rem;}
-  .chip-pink{background:var(--pink-soft);color:var(--pink-deep);}
-  .chip-blue{background:var(--blue-soft);color:var(--blue-deep);}
-
-  .gradient-text{background:linear-gradient(135deg,var(--pink-deep),var(--blue-deep));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-
-  .float-anim{animation:float 4s ease-in-out infinite;}
-  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
-
-  .mobile-menu{display:none;}
-  .mobile-menu.open{display:block;}
-  @media(max-width:768px){.desktop-nav{display:none;}.mobile-menu-btn{display:block;}}
-  @media(min-width:769px){.mobile-menu-btn{display:none;}}
-
-  .section-soft{background:var(--snow);}
-  .section-pink{background:var(--pink-soft);}
-  .section-blue{background:var(--blue-soft);}
-
-  .cta-banner{background:linear-gradient(135deg,var(--pink-deep) 0%,#E878C4 50%,var(--blue-deep) 100%);}
-
-  .logo-mark{background:linear-gradient(135deg,var(--pink-deep),var(--blue-deep));}
-
-  .product-highlight{background:var(--blue-soft);border:1px solid var(--blue);}
-
-  .icon-circle-pink{background:var(--pink-soft);color:var(--pink-deep);}
-  .icon-circle-blue{background:var(--blue-soft);color:var(--blue-deep);}
-
-  .section-label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;margin-bottom:.75rem;}
-
-  .divider{width:40px;height:3px;background:var(--pink-deep);border-radius:2px;margin:0 auto 1.5rem;}
-
-  .usp-card{background:#fff;border-radius:20px;padding:2rem;transition:background .4s,border-color .4s;border:1px solid var(--border);position:relative;overflow:hidden;}
-  .usp-card:hover{background:var(--pink-soft);border-color:var(--pink);}
-  .usp-card:hover .usp-num{color:var(--pink-deep);}
-  .usp-num{position:absolute;top:1rem;right:1.5rem;font-size:4rem;font-weight:700;color:var(--border);line-height:1;transition:color .4s;font-family:'Playfair Display',serif;}
-
-  .product-detail-section{background:#fff;border-radius:24px;padding:2rem;border:1px solid var(--border);transition:background .4s,border-color .4s;}
-  .product-detail-section:hover{background:var(--pink-soft);border-color:var(--pink);}
-
-  .map-container{border-radius:20px;overflow:hidden;border:1px solid var(--border);height:320px;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mouwmilk Indonesia — Kemurnian Susu Segar untuk Keluarga</title>
+  
+  <!-- CDNs -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.0.8/index.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.0.8/index.css" />
+  
+  <!-- Custom CSS External -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -219,7 +26,7 @@
       </div>
     </a>
     
-    <!-- Desktop Navigation Links (Tersembunyi di layar mobile) -->
+    <!-- Desktop Navigation Links -->
     <div class="desktop-nav flex items-center gap-8">
       <a href="#" onclick="showPage('home')" class="nav-link active" data-page="home">Beranda</a>
       <a href="#" onclick="showPage('about')" class="nav-link" data-page="about">Tentang</a>
@@ -554,7 +361,7 @@
         <div class="timeline-item">
           <div class="timeline-year mb-3">2026</div>
           <h3 class="font-bold text-lg mb-2">Hari Ini</h3>
-          <p class="text-[#6B7280] text-sm">Hadir dengan 5 kategori produk unggulan, 25+ wilayah distribusi, dan memberdayakan ratusan peternak lokal.</p>
+          <p class="text-[#6B7280] text-sm">Hadir dengan 5 kategori produk unggulan, 25+ wilayah distribusi, and memberdayakan ratusan peternak lokal.</p>
         </div>
       </div>
     </div>
@@ -1007,7 +814,6 @@
         </div>
       </div>
       <div class="map-container">
-        <!-- Google Maps Embed updated exactly to Tawangsari, Wonosobo coordinates -->
         <iframe 
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.1706606014457!2d109.91470387588383!3d-7.334710092673891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e700b651bc97851%3A0x8e5f3f0fc4c94f1c!2sPenawangan%2C%20Tawangsari%2C%20Kec.%20Wonosobo%2C%20Kabupaten%20Wonosobo%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1710000000000"
           width="100%" 
@@ -1119,9 +925,9 @@
       <div>
         <h4 class="font-bold mb-4 text-[#FFD6E8]">Ikuti Kami</h4>
         <div class="flex gap-3">
-          <a href="https://instagram.com/mouwmilk.id" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#FF5FA2] transition flex items-center justify-center">📸</a>
-          <a href="https://tiktok.com/@mouwmilk.idn" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#4A90D9] transition flex items-center justify-center">🎵</a>
-          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#FF5FA2] transition flex items-center justify-center">💬</a>
+          <a href="https://instagram.com/mouwmilk.id" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#FF5FA2] transition">📸</a>
+          <a href="https://tiktok.com/@mouwmilk.idn" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#4A90D9] transition">🎵</a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#FF5FA2] transition">💬</a>
         </div>
         <p class="text-white/60 text-xs mt-4">Instagram: @mouwmilk.id<br/>TikTok: @mouwmilk.idn</p>
       </div>
@@ -1132,7 +938,7 @@
   </div>
 </footer>
 
-<!-- CUSTOM MODAL SUCCESS BANNER (Replacing alert() to avoid errors) -->
+<!-- CUSTOM MODAL SUCCESS BANNER -->
 <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 opacity-0 pointer-events-none transition-all duration-300">
   <div class="bg-white rounded-3xl p-8 max-w-md mx-4 shadow-2xl text-center transform scale-95 transition-transform duration-300" id="success-modal-content">
     <div class="w-16 h-16 rounded-full bg-green-100 text-green-500 text-3xl flex items-center justify-center mx-auto mb-4">✓</div>
@@ -1142,101 +948,7 @@
   </div>
 </div>
 
-<script>
-// Explicitly binding methods to the window object to fix reference errors across sandboxes
-window.showPage = function(pageId){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  
-  const pageElement = document.getElementById('page-' + pageId);
-  if (pageElement) {
-    pageElement.classList.add('active');
-  }
-  
-  // Perbarui status tautan navigasi desktop
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const activeLinks = document.querySelectorAll(`.nav-link[data-page="${pageId}"]`);
-  activeLinks.forEach(link => link.classList.add('active'));
-
-  // Perbarui status tautan navigasi mobile drawer
-  document.querySelectorAll('.mobile-nav-link').forEach(l => {
-    l.classList.remove('active', 'font-semibold');
-    l.classList.add('font-medium');
-  });
-  const activeMobileLinks = document.querySelectorAll(`.mobile-nav-link[data-page="${pageId}"]`);
-  activeMobileLinks.forEach(link => {
-    link.classList.add('active', 'font-semibold');
-  });
-  
-  window.scrollTo({top: 0, behavior: 'smooth'});
-};
-
-window.toggleMobile = function(open){
-  const overlay = document.getElementById('mobile-overlay');
-  const drawer = document.getElementById('mobile-drawer');
-  
-  if (open) {
-    overlay.classList.add('open');
-    drawer.classList.add('open');
-    document.body.style.overflow = 'hidden'; // Kunci layar agar tidak dapat digulir di luar drawer
-  } else {
-    overlay.classList.remove('open');
-    drawer.classList.remove('open');
-    document.body.style.overflow = ''; // Aktifkan kembali fungsi scroll layar utama
-  }
-};
-
-window.toggleFaq = function(el){
-  if (el && el.parentElement) {
-    el.parentElement.classList.toggle('open');
-  }
-};
-
-window.showSuccessModal = function(message) {
-  const modal = document.getElementById('success-modal');
-  const modalContent = document.getElementById('success-modal-content');
-  const modalText = document.getElementById('success-modal-text');
-  
-  if (modal && modalContent) {
-    if (message) {
-      modalText.textContent = message;
-    }
-    modal.classList.remove('opacity-0', 'pointer-events-none');
-    modalContent.classList.remove('scale-95');
-    modalContent.classList.add('scale-100');
-  }
-};
-
-window.closeSuccessModal = function() {
-  const modal = document.getElementById('success-modal');
-  const modalContent = document.getElementById('success-modal-content');
-  
-  if (modal && modalContent) {
-    modal.classList.add('opacity-0', 'pointer-events-none');
-    modalContent.classList.add('scale-95');
-    modalContent.classList.remove('scale-100');
-  }
-};
-
-window.submitForm = function(e){
-  e.preventDefault();
-  
-  const name = document.getElementById('contact_name') ? document.getElementById('contact_name').value : '';
-  const email = document.getElementById('contact_email') ? document.getElementById('contact_email').value : '';
-  const phone = document.getElementById('contact_phone') ? document.getElementById('contact_phone').value : '';
-  const subject = document.getElementById('contact_subject') ? document.getElementById('contact_subject').value : 'Pertanyaan Umum';
-  const message = document.getElementById('contact_message') ? document.getElementById('contact_message').value : '';
-  
-  let successMsg = `Terima kasih, Kak ${name}! Pesan Anda mengenai "${subject}" telah berhasil terkirim. Tim kemitraan Mouwmilk Indonesia akan segera menghubungi Kakak di nomor ${phone} atau email ${email} dalam kurun waktu 1x24 jam kerja.`;
-  
-  window.showSuccessModal(successMsg);
-  
-  e.target.reset();
-};
-
-// Ensure active state on initial load
-window.addEventListener('DOMContentLoaded', () => {
-  window.showPage('home');
-});
-</script>
+<!-- Custom Javascript External -->
+<script src="script.js"></script>
 </body>
 </html>
