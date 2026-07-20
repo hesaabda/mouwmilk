@@ -1,17 +1,404 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mouwmilk Indonesia — Kemurnian Susu Segar untuk Keluarga</title>
   
-  <!-- CDNs -->
+  <!-- CDNs & Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.0.8/index.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.0.8/index.css" />
   
-  <!-- Custom CSS External -->
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Custom Styling & Theme Variables */
+    :root {
+      --primary-pink: #FF5FA2;
+      --primary-pink-hover: #e0488a;
+      --secondary-blue: #2E6FB8;
+      --soft-pink-bg: #FFF0F7;
+      --soft-blue-bg: #EEF6FD;
+      --text-main: #1F2937;
+      --text-muted: #6B7280;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-main);
+      background-color: #FFFFFF;
+      overflow-x: hidden;
+    }
+
+    .serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary-pink), var(--secondary-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cta-banner {
+      background: linear-gradient(135deg, #FF5FA2 0%, #2E6FB8 100%);
+    }
+
+    .hero-bg {
+      background: radial-gradient(circle at top right, var(--soft-pink-bg), #ffffff 70%);
+    }
+
+    .about-bg {
+      background: radial-gradient(circle at top left, var(--soft-blue-bg), #ffffff 70%);
+    }
+
+    .section-soft {
+      background-color: #F9FAFB;
+    }
+
+    /* Buttons & Components */
+    .btn-primary {
+      background-color: var(--primary-pink);
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1.75rem;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      items-center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(255, 95, 162, 0.3);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-pink-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 95, 162, 0.4);
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: var(--secondary-blue);
+      border: 2px solid var(--secondary-blue);
+      font-weight: 600;
+      padding: 0.75rem 1.75rem;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      items-center;
+      justify-content: center;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--soft-blue-bg);
+      transform: translateY(-2px);
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-right: 0.35rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .chip-pink {
+      background-color: var(--soft-pink-bg);
+      color: var(--primary-pink);
+    }
+
+    .chip-blue {
+      background-color: var(--soft-blue-bg);
+      color: var(--secondary-blue);
+    }
+
+    /* Cards & Containers */
+    .stat-card, .value-card, .product-card, .testimonial-card, .partner-logo, .usp-card, .partnership-card, .contact-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      border: 1px solid #F0F2F5;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover, .value-card:hover, .product-card:hover, .testimonial-card:hover, .usp-card:hover, .partnership-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      border-color: #E5E7EB;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-pink);
+    }
+
+    .partner-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #374151;
+      min-height: 80px;
+    }
+
+    .product-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .product-highlight {
+      background-color: var(--soft-blue-bg);
+      border-left: 4px solid var(--secondary-blue);
+    }
+
+    .product-detail-section {
+      background-color: #FAFAFA;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .nutrition-bar {
+      height: 6px;
+      background-color: #E5E7EB;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .nutrition-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-pink), var(--secondary-blue));
+    }
+
+    .icon-circle-pink {
+      background-color: var(--soft-pink-bg);
+    }
+
+    .icon-circle-blue {
+      background-color: var(--soft-blue-bg);
+    }
+
+    /* Page Navigation & Visibility */
+    .page {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary-pink);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary-pink);
+      border-radius: 2px;
+    }
+
+    /* Mobile Drawer Menu */
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .mobile-menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu-drawer {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100%;
+      background: white;
+      z-index: 70;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s ease-in-out;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu-drawer.open {
+      right: 0;
+    }
+
+    .mobile-nav-link.active {
+      background-color: var(--soft-pink-bg);
+      color: var(--primary-pink) !important;
+      border-radius: 0.75rem;
+    }
+
+    /* Utility Elements */
+    .section-label {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .divider {
+      width: 50px;
+      height: 3px;
+      background: var(--primary-pink);
+      margin: 0.5rem auto 1.5rem auto;
+      border-radius: 9999px;
+    }
+
+    .logo-mark {
+      background: linear-gradient(135deg, var(--primary-pink), var(--secondary-blue));
+    }
+
+    .float-anim {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .carousel {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 1rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .carousel::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 10px;
+    }
+
+    .carousel-item {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+    }
+
+    @media (min-width: 768px) {
+      .carousel-item {
+        flex: 0 0 320px;
+      }
+    }
+
+    /* FAQ & Form */
+    .faq-item {
+      border: 1px solid #F0F2F5;
+      border-radius: 1rem;
+      background: white;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.25rem 1.5rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 1.5rem;
+      background-color: #FAFAFA;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding: 1rem 1.5rem;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-icon {
+      font-size: 1.25rem;
+      transition: transform 0.3s ease;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #E5E7EB;
+      border-radius: 0.75rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary-pink);
+    }
+
+    .map-container {
+      width: 100%;
+      height: 380px;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    .usp-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #F3F4F6;
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      line-height: 1;
+    }
+
+    .usp-card {
+      position: relative;
+    }
+  </style>
 </head>
 <body>
 
@@ -21,14 +408,16 @@
     
     <!-- Logo -->
     <a href="#" onclick="showPage('home')" class="flex items-center gap-2.5 shrink-0">
-      <img src="mouwmilk logo_2.png" alt="Mouwmilk Logo" class="h-10 w-auto object-contain" onerror="this.src='https://placehold.co/40x40/ffd6e8/1f2937?text=M'" />
+      <div class="w-10 h-10 rounded-xl logo-mark flex items-center justify-center text-white font-bold text-xl shadow-md">
+        M
+      </div>
       <div>
         <div class="font-bold text-[#1F2937] text-lg leading-none">Mouwmilk</div>
         <div class="text-xs text-[#6B7280]">Indonesia</div>
       </div>
     </a>
     
-    <!-- Desktop Navigation Links (Otomatis sembunyi di mobile berkat 'hidden md:flex') -->
+    <!-- Desktop Navigation Links -->
     <div class="hidden md:flex items-center gap-8">
       <a href="#" onclick="showPage('home')" class="nav-link active" data-page="home">Beranda</a>
       <a href="#" onclick="showPage('about')" class="nav-link" data-page="about">Tentang</a>
@@ -38,34 +427,33 @@
       <a href="https://wa.me/6282234851377" target="_blank" class="btn-primary text-sm">Hubungi Kami</a>
     </div>
     
-    <!-- Tombol Hamburger Mobile (Hanya muncul di layar mobile 'block md:hidden') -->
-    <button type="button" class="block md:hidden text-2xl text-[#1F2937] p-2 hover:bg-gray-100 rounded-xl focus:outline-none transition-colors shrink-0 z-50" onclick="window.toggleMobile(true)">
+    <!-- Tombol Hamburger Mobile -->
+    <button type="button" aria-label="Buka Menu" class="block md:hidden text-2xl text-[#1F2937] p-2 hover:bg-gray-100 rounded-xl focus:outline-none transition-colors shrink-0 z-50" onclick="toggleMobile(true)">
       ☰
     </button>
     
   </div>
 </nav>
 
-<!-- Overlays untuk laci menu mobile -->
+<!-- Overlays & Sliding Drawer Menu Mobile -->
 <div id="mobile-overlay" class="mobile-menu-overlay" onclick="toggleMobile(false)"></div>
 
-<!-- Struktur Sliding Drawer Menu Mobile -->
 <div id="mobile-drawer" class="mobile-menu-drawer">
-  <!-- Header Drawer -->
   <div class="flex items-center justify-between mb-8 pb-4 border-b border-[#F0F2F5]">
     <div class="flex items-center gap-2">
-      <img src="mouwmilk_logo.png" alt="Mouwmilk Logo" class="h-8 w-auto object-contain" onerror="this.src='https://placehold.co/32x32/ffd6e8/1f2937?text=M'" />
+      <div class="w-8 h-8 rounded-lg logo-mark flex items-center justify-center text-white font-bold text-md">
+        M
+      </div>
       <div>
         <span class="font-bold text-[#1F2937] leading-none block">Mouwmilk</span>
         <span class="text-[10px] text-[#6B7280]">Menu Navigasi</span>
       </div>
     </div>
-    <button class="text-2xl text-[#1F2937] p-2 hover:bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center transition-colors" onclick="toggleMobile(false)">
+    <button aria-label="Tutup Menu" class="text-xl text-[#1F2937] p-2 hover:bg-gray-100 rounded-full w-9 h-9 flex items-center justify-center transition-colors" onclick="toggleMobile(false)">
       ✕
     </button>
   </div>
   
-  <!-- Isi Link Navigasi Drawer -->
   <div class="flex flex-col gap-2">
     <a href="#" onclick="showPage('home');toggleMobile(false)" class="mobile-nav-link active text-md font-semibold text-[#1F2937] py-3 px-4 flex items-center justify-between" data-page="home">
       <span>Beranda</span> <span>→</span>
@@ -84,7 +472,6 @@
     </a>
   </div>
   
-  <!-- Footer Informasi di Drawer -->
   <div class="mt-auto pt-6 border-t border-[#F0F2F5] space-y-4">
     <a href="https://wa.me/6282234851377" target="_blank" class="btn-primary w-full text-center py-3 flex items-center justify-center gap-2">
       <span>🥛 Hubungi Kami (WA)</span>
@@ -97,8 +484,8 @@
 
 <!-- ============ HALAMAN 1: BERANDA ============ -->
 <div id="page-home" class="page active">
-  <section class="hero-bg min-h-screen flex items-center pt-24 pb-16">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+  <section class="hero-bg min-h-screen flex items-center pt-28 pb-16">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
       <div>
         <div class="section-label text-[#FF5FA2]">🥛 100% Susu Sapi Murni</div>
         <h1 class="serif text-4xl md:text-6xl font-bold leading-tight mb-6">
@@ -113,12 +500,12 @@
         </div>
       </div>
       <div class="relative">
-        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1b36800e4-f38c-4c48-b8a8-34fa2f7292df.png" alt="Keluarga Mouwmilk" class="rounded-3xl shadow-xl float-anim w-full max-w-md mx-auto" onerror="this.src='https://placehold.co/500x500/ffd6e8/1f2937?text=Mouwmilk+Fresh+Milk'"/>
+        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1b36800e4-f38c-4c48-b8a8-34fa2f7292df.png" alt="Keluarga Mouwmilk" class="rounded-3xl shadow-xl float-anim w-full max-w-md mx-auto object-cover" onerror="this.src='https://placehold.co/500x500/ffd6e8/1f2937?text=Mouwmilk+Fresh+Milk'"/>
       </div>
     </div>
   </section>
 
-  <section class="py-28 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <div class="section-label text-[#FF5FA2]">Mengenal Mouwmilk</div>
       <div class="divider"></div>
@@ -126,95 +513,95 @@
       <p class="text-lg text-[#6B7280] leading-relaxed mb-8">
         Mouwmilk Indonesia lahir dari komitmen mendalam untuk menyediakan nutrisi susu terbaik yang praktis, lezat, dan terjangkau bagi seluruh keluarga Indonesia. Kami percaya bahwa susu murni berkualitas tinggi tidak harus membosankan. Melalui inovasi tanpa henti, kami mengubah kebaikan susu segar menjadi berbagai variasi produk olahan yang digemari dari generasi ke generasi.
       </p>
-      <a href="#" onclick="showPage('about')" class="text-[#FF5FA2] font-semibold hover:text-[#FF8FC3]">Baca Selengkapnya Tentang Kisah Kami →</a>
+      <a href="#" onclick="showPage('about')" class="text-[#FF5FA2] font-semibold hover:text-[#FF8FC3] inline-flex items-center gap-1">Baca Selengkapnya Tentang Kisah Kami →</a>
     </div>
   </section>
 
-  <section class="py-28 section-soft">
+  <section class="py-20 section-soft">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#2E6FB8]">Pencapaian Kami</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Statistik & Milestones</h2>
       </div>
-      <div class="grid md:grid-cols-4 gap-6">
-        <div class="stat-card">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="stat-card text-center">
           <div class="stat-num">100%+</div>
-          <div class="text-[#6B7280] mt-3 text-sm">Peternak Lokal Bermitra Adil</div>
+          <div class="text-[#6B7280] mt-2 text-sm font-medium">Peternak Lokal Bermitra</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card text-center">
           <div class="stat-num">50K+</div>
-          <div class="text-[#6B7280] mt-3 text-sm">Liter Susu Diproses/Bulan</div>
+          <div class="text-[#6B7280] mt-2 text-sm font-medium">Liter Diproses / Bulan</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card text-center">
           <div class="stat-num">25+</div>
-          <div class="text-[#6B7280] mt-3 text-sm">Wilayah Distribusi</div>
+          <div class="text-[#6B7280] mt-2 text-sm font-medium">Wilayah Distribusi</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card text-center">
           <div class="stat-num">✓</div>
-          <div class="text-[#6B7280] mt-3 text-sm">100% Halal & BPOM</div>
+          <div class="text-[#6B7280] mt-2 text-sm font-medium">100% Halal & BPOM</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-28 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#FF5FA2]">Pilihan Favorit</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Produk Terpopuler</h2>
       </div>
       <div class="carousel">
         <div class="carousel-item product-card">
-          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1c452d2c4-2c5d-4e49-b81f-fdf6a0cb49d6.png" alt="Yogurt Stick" class="w-full h-64 object-cover" onerror="this.src='https://placehold.co/320x250/ffd6e8/1f2937?text=Yogurt+Stick'"/>
-          <div class="p-6">
+          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1c452d2c4-2c5d-4e49-b81f-fdf6a0cb49d6.png" alt="Yogurt Stick" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/320x250/ffd6e8/1f2937?text=Yogurt+Stick'"/>
+          <div class="p-5">
             <span class="chip chip-pink">Best Seller</span>
-            <h3 class="font-bold text-xl mt-3 mb-2">Yogurt Stick</h3>
+            <h3 class="font-bold text-xl mt-2 mb-1">Yogurt Stick</h3>
             <p class="text-[#6B7280] text-sm">Camilan beku sehat rasa buah favorit anak-anak. Kaya kalsium, praktis dibawa.</p>
           </div>
         </div>
         <div class="carousel-item product-card">
-          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/140988505-d9d3-4a74-853e-a435c8aa4ca9.png" alt="Susu Pasteurisasi" class="w-full h-64 object-cover" onerror="this.src='https://placehold.co/320x250/b8d8f2/1f2937?text=Susu+Pasteurisasi'"/>
-          <div class="p-6">
+          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/140988505-d9d3-4a74-853e-a435c8aa4ca9.png" alt="Susu Pasteurisasi" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/320x250/b8d8f2/1f2937?text=Susu+Pasteurisasi'"/>
+          <div class="p-5">
             <span class="chip chip-blue">Premium</span>
-            <h3 class="font-bold text-xl mt-3 mb-2">Susu Pasteurisasi Original</h3>
+            <h3 class="font-bold text-xl mt-2 mb-1">Susu Pasteurisasi Original</h3>
             <p class="text-[#6B7280] text-sm">Rasa gurih alami susu segar yang sesungguhnya. Tanpa pengawet, creamy lembut.</p>
           </div>
         </div>
         <div class="carousel-item product-card">
-          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1ebc9bec7-27d6-4d57-acd3-b3955085e159.png" alt="Stik Susu" class="w-full h-64 object-cover" onerror="this.src='https://placehold.co/320x250/ffd6e8/1f2937?text=Stik+Susu'"/>
-          <div class="p-6">
+          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1ebc9bec7-27d6-4d57-acd3-b3955085e159.png" alt="Stik Susu" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/320x250/ffd6e8/1f2937?text=Stik+Susu'"/>
+          <div class="p-5">
             <span class="chip chip-pink">Favorit</span>
-            <h3 class="font-bold text-xl mt-3 mb-2">Stik Susu Original Cheese</h3>
+            <h3 class="font-bold text-xl mt-2 mb-1">Stik Susu Original Cheese</h3>
             <p class="text-[#6B7280] text-sm">Kue kering renyah dengan aroma keju dan susu premium. Teman ngopi sempurna.</p>
           </div>
         </div>
         <div class="carousel-item product-card">
-          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/10f1c1a77-cea7-4678-86df-ec9aa5c09808.png" alt="Yogurt Botol" class="w-full h-64 object-cover" onerror="this.src='https://placehold.co/320x250/b8d8f2/1f2937?text=Yogurt+Botol'"/>
-          <div class="p-6">
+          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/10f1c1a77-cea7-4678-86df-ec9aa5c09808.png" alt="Yogurt Botol" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/320x250/b8d8f2/1f2937?text=Yogurt+Botol'"/>
+          <div class="p-5">
             <span class="chip chip-blue">Segar</span>
-            <h3 class="font-bold text-xl mt-3 mb-2">Yogurt Botol Buah</h3>
-            <p class="text-[#6B7280] text-sm">Yogurt siap minum dengan ekstrak buah asli. Baik untuk pencernaan.</p>
+            <h3 class="font-bold text-xl mt-2 mb-1">Yogurt Botol Buah</h3>
+            <p class="text-[#6B7280] text-sm">Yogurt siap minum dengan ekstrak buah asli. Baik untuk kesehatan pencernaan.</p>
           </div>
         </div>
       </div>
-      <div class="text-center mt-12">
+      <div class="text-center mt-10">
         <a href="#" onclick="showPage('products')" class="btn-primary">Lihat Seluruh Katalog Produk →</a>
       </div>
     </div>
   </section>
 
   <!-- LIST OF CLIENTS -->
-  <section class="py-28 section-soft">
+  <section class="py-20 section-soft">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#2E6FB8]">Dipercaya Oleh</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Klien & Mitra Strategis</h2>
       </div>
-      <div class="mb-10">
-        <h3 class="font-bold text-lg mb-4 text-[#1F2937]">🛒 Ritel Modern & Supermarket</h3>
+      <div class="mb-8">
+        <h3 class="font-bold text-md mb-4 text-[#1F2937]">🛒 Ritel Modern & Supermarket</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div class="partner-logo">Ranch Market & Farmers Market</div>
           <div class="partner-logo">Hero Supermarket</div>
@@ -222,8 +609,8 @@
           <div class="partner-logo">Lotte Mart</div>
         </div>
       </div>
-      <div class="mb-10">
-        <h3 class="font-bold text-lg mb-4 text-[#1F2937]">☕ Hotel, Restoran & Kafe</h3>
+      <div class="mb-8">
+        <h3 class="font-bold text-md mb-4 text-[#1F2937]">☕ Hotel, Restoran & Kafe</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div class="partner-logo">Kopi Kenangan Group</div>
           <div class="partner-logo">J.CO Donuts & Coffee</div>
@@ -232,7 +619,7 @@
         </div>
       </div>
       <div>
-        <h3 class="font-bold text-lg mb-4 text-[#1F2937]">🎓 Kemitraan Sekolah & Institusi</h3>
+        <h3 class="font-bold text-md mb-4 text-[#1F2937]">🎓 Kemitraan Sekolah & Institusi</h3>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div class="partner-logo">Al-Azhar Syifa Budi</div>
           <div class="partner-logo">Sekolah Global Jaya</div>
@@ -242,25 +629,25 @@
     </div>
   </section>
 
-  <section class="py-28 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#FF5FA2]">Nilai Kami</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Mengapa Memilih Mouwmilk?</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="value-card">
+        <div class="value-card text-center">
           <div class="w-16 h-16 mx-auto rounded-2xl icon-circle-pink flex items-center justify-center text-3xl mb-5">❄️</div>
           <h3 class="font-bold text-xl mb-3">Kesegaran Terjaga</h3>
           <p class="text-[#6B7280] text-sm leading-relaxed">Dari pemerahan harian langsung masuk proses pengolahan dingin untuk menjaga kualitas terbaik.</p>
         </div>
-        <div class="value-card">
+        <div class="value-card text-center">
           <div class="w-16 h-16 mx-auto rounded-2xl icon-circle-blue flex items-center justify-center text-3xl mb-5">✨</div>
           <h3 class="font-bold text-xl mb-3">Inovasi Rasa & Tekstur</h3>
           <p class="text-[#6B7280] text-sm leading-relaxed">Ragam olahan unik yang membuat konsumsi susu menjadi lebih menyenangkan untuk semua usia.</p>
         </div>
-        <div class="value-card">
+        <div class="value-card text-center">
           <div class="w-16 h-16 mx-auto rounded-2xl icon-circle-pink flex items-center justify-center text-3xl mb-5">🌿</div>
           <h3 class="font-bold text-xl mb-3">Tanpa Bahan Kimia</h3>
           <p class="text-[#6B7280] text-sm leading-relaxed">Bebas pengawet sintetis dan pewarna buatan berbahaya. Aman untuk keluarga Anda.</p>
@@ -269,33 +656,33 @@
     </div>
   </section>
 
-  <section class="py-28 section-soft">
+  <section class="py-20 section-soft">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#FF5FA2]">Testimoni</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Apa Kata Pelanggan Kami</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="testimonial-card">
-          <div class="text-5xl gradient-text mb-3 font-serif leading-none">"</div>
-          <p class="text-[#6B7280] mb-6 italic leading-relaxed">Anak-anak saya sangat menyukai Yogurt Stick rasa buahnya! Biasanya mereka malas minum susu, tapi sekarang mereka punya camilan sehat harian yang kaya kalsium.</p>
+          <div class="text-5xl gradient-text mb-2 font-serif leading-none">"</div>
+          <p class="text-[#6B7280] mb-6 italic leading-relaxed text-sm">Anak-anak saya sangat menyukai Yogurt Stick rasa buahnya! Biasanya mereka malas minum susu, tapi sekarang mereka punya camilan sehat harian yang kaya kalsium.</p>
           <div class="flex items-center gap-3 pt-4 border-t border-[#F0F2F5]">
-            <div class="w-12 h-12 rounded-full logo-mark flex items-center justify-center text-white font-bold">D</div>
+            <div class="w-10 h-10 rounded-full logo-mark flex items-center justify-center text-white font-bold text-sm">D</div>
             <div>
-              <div class="font-bold">Ibu Dian Pramitha</div>
-              <div class="text-sm text-[#6B7280]">Wonosobo</div>
+              <div class="font-bold text-sm">Ibu Dian Pramitha</div>
+              <div class="text-xs text-[#6B7280]">Wonosobo</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <div class="text-5xl gradient-text mb-3 font-serif leading-none">"</div>
-          <p class="text-[#6B7280] mb-6 italic leading-relaxed">Sebagai pemilik kafe, stik susu dari Mouwmilk menjadi pelengkap menu dessert kami yang paling laris. Rasanya premium dan sangat konsisten!</p>
+          <div class="text-5xl gradient-text mb-2 font-serif leading-none">"</div>
+          <p class="text-[#6B7280] mb-6 italic leading-relaxed text-sm">Sebagai pemilik kafe, stik susu dari Mouwmilk menjadi pelengkap menu dessert kami yang paling laris. Rasanya premium dan sangat konsisten!</p>
           <div class="flex items-center gap-3 pt-4 border-t border-[#F0F2F5]">
-            <div class="w-12 h-12 rounded-full logo-mark flex items-center justify-center text-white font-bold">R</div>
+            <div class="w-10 h-10 rounded-full logo-mark flex items-center justify-center text-white font-bold text-sm">R</div>
             <div>
-              <div class="font-bold">Rian Hadi</div>
-              <div class="text-sm text-[#6B7280]">Pemilik Kafe, Yogyakarta</div>
+              <div class="font-bold text-sm">Rian Hadi</div>
+              <div class="text-xs text-[#6B7280]">Pemilik Kafe, Yogyakarta</div>
             </div>
           </div>
         </div>
@@ -306,7 +693,7 @@
 
 <!-- ============ HALAMAN 2: TENTANG KAMI ============ -->
 <div id="page-about" class="page">
-  <section class="about-bg pt-32 pb-20">
+  <section class="about-bg pt-28 pb-16">
     <div class="max-w-5xl mx-auto px-6 text-center">
       <div class="section-label text-[#FF5FA2]">Tentang Kami</div>
       <div class="divider"></div>
@@ -317,113 +704,81 @@
     </div>
   </section>
 
-  <section class="py-28 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-5xl mx-auto px-6">
       <div class="grid md:grid-cols-2 gap-12 items-center">
-        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/14a30de21-9338-4a6d-9bef-19679b18471c.png" alt="Peternakan Sapi" class="rounded-3xl shadow-lg" onerror="this.src='https://placehold.co/500x350/b8d8f2/1f2937?text=Peternakan+Sapi+Wonosobo'"/>
+        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/14a30de21-9338-4a6d-9bef-19679b18471c.png" alt="Peternakan Sapi" class="rounded-3xl shadow-lg w-full object-cover" onerror="this.src='https://placehold.co/500x350/b8d8f2/1f2937?text=Peternakan+Sapi+Wonosobo'"/>
         <div>
           <div class="section-label text-[#2E6FB8]">Kisah Kami</div>
           <h2 class="serif text-3xl font-bold mb-6">Dari Peternakan Wonosobo Menuju Meja Makan Keluarga</h2>
-          <p class="text-[#6B7280] mb-4 leading-relaxed">
+          <p class="text-[#6B7280] mb-4 text-sm leading-relaxed">
             Didirikan pada tahun 2018, Mouwmilk Indonesia berawal dari keprihatinan kami terhadap konsumsi susu per kapita masyarakat Indonesia yang masih tergolong rendah, serta kesejahteraan peternak sapi perah lokal yang sering kali menghadapi ketidakpastian harga pasar.
           </p>
-          <p class="text-[#6B7280] mb-4 leading-relaxed">
-            Kami melihat peluang besar untuk menjembatani masalah ini dengan mengolah susu segar hasil perahan langsung dari peternak lokal di Penawangan, Wonosobo menjadi produk bernilai tambah tinggi. Dengan memadukan metode produksi modern yang higienis serta resep inovatif yang disesuaikan dengan selera lidah masyarakat, lahirlah brand Mouwmilk.
+          <p class="text-[#6B7280] mb-4 text-sm leading-relaxed">
+            Kami melihat peluang besar untuk menjembatani masalah ini dengan mengolah susu segar hasil perahan langsung dari peternak lokal di Penawangan, Wonosobo menjadi produk bernilai tambah tinggi.
           </p>
-          <p class="text-[#6B7280] leading-relaxed">
-            Kini, Mouwmilk bukan sekadar produk olahan susu biasa, melainkan sebuah ekosistem kebaikan yang menghubungkan peternakan sapi yang sehat di Wonosobo, teknologi pengolahan yang steril, dan kebahagiaan para konsumen yang menikmati setiap produk kami.
+          <p class="text-[#6B7280] text-sm leading-relaxed">
+            Kini, Mouwmilk bukan sekadar produk olahan susu biasa, melainkan sebuah ekosistem kebaikan yang menghubungkan peternakan sapi yang sehat di Wonosobo, teknologi pengolahan yang steril, dan kebahagiaan para konsumen.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-28 section-soft">
+  <section class="py-20 section-soft">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#FF5FA2]">Perjalanan Kami</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Milestone Mouwmilk</h2>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="timeline-item">
-          <div class="timeline-year mb-3">2018</div>
-          <h3 class="font-bold text-lg mb-2">Awal Mula</h3>
-          <p class="text-[#6B7280] text-sm">Berdiri di Penawangan, Wonosobo dengan mitra peternak lokal pertama dan varian produk susu pasteurisasi murni.</p>
+        <div class="stat-card">
+          <div class="text-2xl font-bold text-[#FF5FA2] mb-2 font-serif">2018</div>
+          <h3 class="font-bold text-base mb-2">Awal Mula</h3>
+          <p class="text-[#6B7280] text-xs leading-relaxed">Berdiri di Penawangan, Wonosobo dengan mitra peternak lokal pertama dan varian produk susu pasteurisasi murni.</p>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-year mb-3">2020</div>
-          <h3 class="font-bold text-lg mb-2">Ekspansi Produk</h3>
-          <p class="text-[#6B7280] text-sm">Meluncurkan lini Yogurt Botol dan Yogurt Stick sebagai inovasi camilan sehat keluarga.</p>
+        <div class="stat-card">
+          <div class="text-2xl font-bold text-[#FF5FA2] mb-2 font-serif">2020</div>
+          <h3 class="font-bold text-base mb-2">Ekspansi Produk</h3>
+          <p class="text-[#6B7280] text-xs leading-relaxed">Meluncurkan lini Yogurt Botol dan Yogurt Stick sebagai inovasi camilan sehat keluarga.</p>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-year mb-3">2023</div>
-          <h3 class="font-bold text-lg mb-2">Sertifikasi Penuh</h3>
-          <p class="text-[#6B7280] text-sm">Meraih sertifikasi BPOM RI dan Halal MUI secara penuh untuk menjamin standar kualitas tertinggi.</p>
+        <div class="stat-card">
+          <div class="text-2xl font-bold text-[#FF5FA2] mb-2 font-serif">2023</div>
+          <h3 class="font-bold text-base mb-2">Sertifikasi Penuh</h3>
+          <p class="text-[#6B7280] text-xs leading-relaxed">Meraih sertifikasi BPOM RI dan Halal MUI secara penuh untuk menjamin standar kualitas tertinggi.</p>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-year mb-3">2026</div>
-          <h3 class="font-bold text-lg mb-2">Hari Ini</h3>
-          <p class="text-[#6B7280] text-sm">Hadir dengan 5 kategori produk unggulan, 25+ wilayah distribusi, and memberdayakan ratusan peternak lokal.</p>
+        <div class="stat-card">
+          <div class="text-2xl font-bold text-[#FF5FA2] mb-2 font-serif">2026</div>
+          <h3 class="font-bold text-base mb-2">Hari Ini</h3>
+          <p class="text-[#6B7280] text-xs leading-relaxed">Hadir dengan 5 kategori produk unggulan, 25+ wilayah distribusi, dan memberdayakan ratusan peternak lokal.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-28 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#2E6FB8]">Arah Kami</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Visi & Misi Perusahaan</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="value-card text-left">
-          <div class="w-14 h-14 rounded-2xl icon-circle-pink flex items-center justify-center text-2xl mb-4">🎯</div>
-          <h3 class="font-bold text-2xl mb-4 gradient-text">Visi</h3>
-          <p class="text-[#6B7280] leading-relaxed">Menjadi perusahaan produsen makanan dan minuman olahan susu terkemuka di Indonesia yang diakui secara nasional karena kualitas, inovasi rasa, serta dampak sosial positif dalam menyejahterakan peternak lokal.</p>
+          <div class="w-12 h-12 rounded-2xl icon-circle-pink flex items-center justify-center text-xl mb-4">🎯</div>
+          <h3 class="font-bold text-xl mb-3 gradient-text">Visi</h3>
+          <p class="text-[#6B7280] text-sm leading-relaxed">Menjadi perusahaan produsen makanan dan minuman olahan susu terkemuka di Indonesia yang diakui secara nasional karena kualitas, inovasi rasa, serta dampak sosial positif dalam menyejahterakan peternak lokal.</p>
         </div>
         <div class="value-card text-left">
-          <div class="w-14 h-14 rounded-2xl icon-circle-blue flex items-center justify-center text-2xl mb-4">🚀</div>
-          <h3 class="font-bold text-2xl mb-4 gradient-text">Misi</h3>
-          <ol class="text-[#6B7280] space-y-3 list-decimal list-inside text-sm leading-relaxed">
-            <li><strong class="text-[#1F2937]">Kualitas Tanpa Kompromi:</strong> Menyajikan produk olahan susu premium dengan standar higienitas tertinggi dari hulu ke hilir.</li>
-            <li><strong class="text-[#1F2937]">Inovasi Berkelanjutan:</strong> Terus mengembangkan produk kreatif, lezat, dan bernutrisi tinggi sesuai gaya hidup modern.</li>
-            <li><strong class="text-[#1F2937]">Pemberdayaan Peternak:</strong> Membangun kemitraan yang adil dengan peternak sapi perah lokal untuk meningkatkan taraf hidup mereka.</li>
-            <li><strong class="text-[#1F2937]">Edukasi Gizi:</strong> Mengkampanyekan pentingnya konsumsi produk olahan susu sehat bagi perkembangan kecerdasan anak bangsa.</li>
+          <div class="w-12 h-12 rounded-2xl icon-circle-blue flex items-center justify-center text-xl mb-4">🚀</div>
+          <h3 class="font-bold text-xl mb-3 gradient-text">Misi</h3>
+          <ol class="text-[#6B7280] space-y-2 list-decimal list-inside text-sm leading-relaxed">
+            <li><strong class="text-[#1F2937]">Kualitas Tanpa Kompromi:</strong> Menyajikan produk premium dengan standar higienitas tertinggi.</li>
+            <li><strong class="text-[#1F2937]">Inovasi Berkelanjutan:</strong> Membangun produk kreatif dan bernutrisi tinggi.</li>
+            <li><strong class="text-[#1F2937]">Pemberdayaan Peternak:</strong> Mendorong kemitraan adil dengan peternak sapi lokal.</li>
+            <li><strong class="text-[#1F2937]">Edukasi Gizi:</strong> Mengkampanyekan pentingnya gizi susu bagi generasi muda.</li>
           </ol>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-28 section-soft">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <div class="section-label text-[#FF5FA2]">Prinsip Kami</div>
-        <div class="divider"></div>
-        <h2 class="serif text-3xl md:text-4xl font-bold">Nilai-Nilai Utama Kami</h2>
-      </div>
-      <div class="grid md:grid-cols-4 gap-6">
-        <div class="value-card">
-          <div class="w-14 h-14 mx-auto rounded-2xl icon-circle-pink flex items-center justify-center text-2xl mb-4">🤝</div>
-          <h3 class="font-bold text-lg mb-2">Integritas</h3>
-          <p class="text-[#6B7280] text-sm">Jujur dalam komposisi produk. Apa yang tertulis di kemasan adalah apa yang Anda dapatkan.</p>
-        </div>
-        <div class="value-card">
-          <div class="w-14 h-14 mx-auto rounded-2xl icon-circle-blue flex items-center justify-center text-2xl mb-4">⭐</div>
-          <h3 class="font-bold text-lg mb-2">Kualitas Terbaik</h3>
-          <p class="text-[#6B7280] text-sm">Hanya menggunakan susu segar kelas A yang bebas dari residu antibiotik.</p>
-        </div>
-        <div class="value-card">
-          <div class="w-14 h-14 mx-auto rounded-2xl icon-circle-pink flex items-center justify-center text-2xl mb-4">💡</div>
-          <h3 class="font-bold text-lg mb-2">Kreativitas</h3>
-          <p class="text-[#6B7280] text-sm">Mengubah cara menikmati susu dari biasa menjadi luar biasa melalui variasi tekstur dan bentuk.</p>
-        </div>
-        <div class="value-card">
-          <div class="w-14 h-14 mx-auto rounded-2xl icon-circle-blue flex items-center justify-center text-2xl mb-4">🌱</div>
-          <h3 class="font-bold text-lg mb-2">Kepedulian Lingkungan</h3>
-          <p class="text-[#6B7280] text-sm">Meminimalisir limbah produksi dan bertransisi ke kemasan ramah lingkungan secara bertahap.</p>
         </div>
       </div>
     </div>
@@ -432,170 +787,97 @@
 
 <!-- ============ HALAMAN 3: PRODUK KAMI ============ -->
 <div id="page-products" class="page">
-  <section class="pt-32 pb-20 cta-banner text-white">
+  <section class="pt-28 pb-16 cta-banner text-white">
     <div class="max-w-5xl mx-auto px-6 text-center">
-      <div class="text-sm font-semibold uppercase tracking-widest mb-3 opacity-90">Katalog Produk</div>
-      <h1 class="serif text-4xl md:text-5xl font-bold mb-6">Kebaikan Susu dalam Berbagai Bentuk Kelezatan</h1>
-      <p class="text-lg opacity-95 max-w-3xl mx-auto">Semua produk kami diproduksi secara higienis, menggunakan pemanis alami, dan tanpa tambahan bahan pengawet kimia berbahaya. Temukan favorit Anda di bawah ini!</p>
+      <div class="text-xs font-semibold uppercase tracking-widest mb-2 opacity-90">Katalog Produk</div>
+      <h1 class="serif text-4xl md:text-5xl font-bold mb-4">Kebaikan Susu dalam Berbagai Kelezatan</h1>
+      <p class="text-base opacity-95 max-w-2xl mx-auto">Diproduksi secara higienis, menggunakan pemanis alami, dan tanpa tambahan pengawet sintetis.</p>
     </div>
   </section>
 
-  <section class="py-28 bg-white">
-    <div class="max-w-7xl mx-auto px-6 space-y-28">
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 space-y-20">
       
       <!-- Kategori A: Susu Pasteurisasi -->
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/140988505-d9d3-4a74-853e-a435c8aa4ca9.png" alt="Susu Pasteurisasi" class="rounded-3xl shadow-lg" onerror="this.src='https://placehold.co/500x350/b8d8f2/1f2937?text=Susu+Pasteurisasi'"/>
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/140988505-d9d3-4a74-853e-a435c8aa4ca9.png" alt="Susu Pasteurisasi" class="rounded-3xl shadow-md w-full object-cover" onerror="this.src='https://placehold.co/500x350/b8d8f2/1f2937?text=Susu+Pasteurisasi'"/>
         <div>
           <span class="chip chip-blue">Kategori A</span>
-          <h2 class="serif text-3xl font-bold mt-3 mb-2">Susu Pasteurisasi</h2>
-          <p class="text-sm text-[#FF5FA2] font-semibold italic mb-4">"Kesegaran murni yang sesungguhnya."</p>
-          <p class="text-[#6B7280] mb-5 leading-relaxed">Susu cair murni yang dipanaskan dengan metode pasteurisasi khusus (suhu rendah dalam waktu tertentu) sehingga mikroorganisme berbahaya mati tanpa merusak vitamin, kalsium, dan enzim alami yang terkandung di dalam susu segar. Menghasilkan rasa gurih yang kaya dan alami.</p>
-          <div class="product-highlight rounded-2xl p-5 mb-5">
-            <div class="font-bold text-[#2E6FB8] mb-2 text-sm">✨ Mengapa Spesial?</div>
-            <p class="text-[#6B7280] text-sm">Tekstur super lembut (creamy) dan rasa gurih alami yang jauh lebih kuat dibanding susu kemasan UHT komersial biasa.</p>
+          <h2 class="serif text-3xl font-bold mt-2 mb-1">Susu Pasteurisasi</h2>
+          <p class="text-xs text-[#FF5FA2] font-semibold italic mb-3">"Kesegaran murni yang sesungguhnya."</p>
+          <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Susu cair murni yang dipanaskan dengan metode pasteurisasi khusus sehingga mikroorganisme berbahaya mati tanpa merusak vitamin dan kalsium alami.</p>
+          <div class="product-highlight rounded-xl p-4 mb-4">
+            <div class="font-bold text-[#2E6FB8] mb-1 text-xs">✨ Mengapa Spesial?</div>
+            <p class="text-[#6B7280] text-xs leading-relaxed">Tekstur super lembut (creamy) dan rasa gurih alami yang jauh lebih kuat dibanding susu kemasan UHT komersial biasa.</p>
           </div>
-          <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Pilihan Ukuran:</div>
+          <div class="mb-3">
+            <div class="font-bold text-xs mb-1">Pilihan Ukuran:</div>
             <span class="chip chip-blue">Botol 250ml</span>
             <span class="chip chip-blue">Botol 1 Liter</span>
           </div>
           <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Varian Rasa:</div>
+            <div class="font-bold text-xs mb-1">Varian Rasa:</div>
             <span class="chip chip-pink">Original Creamy</span>
             <span class="chip chip-pink">Rich Chocolate</span>
             <span class="chip chip-pink">Fresh Strawberry</span>
           </div>
-          <div class="text-sm text-[#6B7280] mb-5"><strong>Penyimpanan:</strong> Wajib di kulkas (2°C-4°C). Tahan hingga 7 hari sejak tanggal produksi.</div>
           
           <div class="product-detail-section">
-            <h4 class="font-bold text-lg mb-4 gradient-text">💡 Informasi Nutrisi (per 250ml)</h4>
-            <div class="space-y-3 mb-5">
+            <h4 class="font-bold text-sm mb-3 gradient-text">💡 Informasi Nutrisi (per 250ml)</h4>
+            <div class="space-y-2 mb-3">
               <div>
-                <div class="flex justify-between text-sm mb-1"><span class="font-medium">Kalori</span><span class="text-[#6B7280]">150 kkal</span></div>
+                <div class="flex justify-between text-xs mb-1"><span class="font-medium">Kalori</span><span class="text-[#6B7280]">150 kkal</span></div>
                 <div class="nutrition-bar"><div class="nutrition-fill" style="width:60%"></div></div>
               </div>
               <div>
-                <div class="flex justify-between text-sm mb-1"><span class="font-medium">Protein</span><span class="text-[#6B7280]">8g</span></div>
+                <div class="flex justify-between text-xs mb-1"><span class="font-medium">Protein</span><span class="text-[#6B7280]">8g</span></div>
                 <div class="nutrition-bar"><div class="nutrition-fill" style="width:75%"></div></div>
               </div>
-              <div>
-                <div class="flex justify-between text-sm mb-1"><span class="font-medium">Kalsium</span><span class="text-[#6B7280]">30% AKG</span></div>
-                <div class="nutrition-bar"><div class="nutrition-fill" style="width:85%"></div></div>
-              </div>
             </div>
-            <h4 class="font-bold text-lg mb-3 gradient-text">🥤 Cara Konsumsi Terbaik</h4>
-            <p class="text-[#6B7280] text-sm leading-relaxed">Sajikan dingin langsung dari kulkas untuk rasa paling segar. Cocok diminum saat sarapan, sebagai pendamping roti, atau dicampur dengan sereal favorit.</p>
           </div>
         </div>
       </div>
 
       <!-- Kategori B: Yogurt Botol -->
-      <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
         <div class="md:order-2">
-          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/10f1c1a77-cea7-4678-86df-ec9aa5c09808.png" alt="Yogurt Botol" class="rounded-3xl shadow-lg" onerror="this.src='https://placehold.co/500x350/b8d8f2/1f2937?text=Yogurt+Botol'"/>
+          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/10f1c1a77-cea7-4678-86df-ec9aa5c09808.png" alt="Yogurt Botol" class="rounded-3xl shadow-md w-full object-cover" onerror="this.src='https://placehold.co/500x350/b8d8f2/1f2937?text=Yogurt+Botol'"/>
         </div>
         <div class="md:order-1">
           <span class="chip chip-pink">Kategori B</span>
-          <h2 class="serif text-3xl font-bold mt-3 mb-2">Yogurt Botol</h2>
-          <p class="text-sm text-[#FF5FA2] font-semibold italic mb-4">"Asam manis segar, baik untuk pencernaan."</p>
-          <p class="text-[#6B7280] mb-5 leading-relaxed">Minuman yogurt bertekstur cair yang lembut, dibuat melalui proses fermentasi susu segar menggunakan kultur bakteri hidup yang baik untuk pencernaan, dipadukan dengan ekstrak jus buah asli.</p>
-          <div class="product-highlight rounded-2xl p-5 mb-5">
-            <div class="font-bold text-[#2E6FB8] mb-2 text-sm">✨ Mengapa Spesial?</div>
-            <p class="text-[#6B7280] text-sm">Menyeimbangkan rasa asam dan manis dengan pas. Membantu melancarkan pencernaan dan aman bagi yang memiliki sensitivitas laktosa ringan.</p>
-          </div>
-          <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Pilihan Ukuran:</div>
+          <h2 class="serif text-3xl font-bold mt-2 mb-1">Yogurt Botol</h2>
+          <p class="text-xs text-[#FF5FA2] font-semibold italic mb-3">"Asam manis segar, baik untuk pencernaan."</p>
+          <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Minuman yogurt bertekstur cair yang lembut, dibuat melalui proses fermentasi susu segar menggunakan kultur bakteri hidup yang baik untuk kesehatan pencernaan.</p>
+          <div class="mb-3">
+            <div class="font-bold text-xs mb-1">Pilihan Ukuran:</div>
             <span class="chip chip-pink">Botol 250ml</span>
           </div>
           <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Varian Rasa:</div>
+            <div class="font-bold text-xs mb-1">Varian Rasa:</div>
             <span class="chip chip-blue">Sweet Mango</span>
             <span class="chip chip-blue">Wild Blueberry</span>
             <span class="chip chip-blue">Summer Strawberry</span>
-            <span class="chip chip-blue">Exotic Lychee</span>
-          </div>
-          
-          <div class="product-detail-section">
-            <h4 class="font-bold text-lg mb-4 gradient-text">💡 Informasi Nutrisi (per 250ml)</h4>
-            <div class="space-y-3 mb-5">
-              <div>
-                <div class="flex justify-between text-sm mb-1"><span class="font-medium">Kalori</span><span class="text-[#6B7280]">120 kkal</span></div>
-                <div class="nutrition-bar"><div class="nutrition-fill" style="width:50%"></div></div>
-              </div>
-              <div>
-                <div class="flex justify-between text-sm mb-1"><span class="font-medium">Probiotik Aktif</span><span class="text-[#6B7280]">10⁸ CFU</span></div>
-                <div class="nutrition-bar"><div class="nutrition-fill" style="width:90%"></div></div>
-              </div>
-            </div>
-            <h4 class="font-bold text-lg mb-3 gradient-text">🥤 Cara Konsumsi Terbaik</h4>
-            <p class="text-[#6B7280] text-sm leading-relaxed">Nikmati dingin langsung dari kulkas sebagai minuman penyegar di siang hari. Cocok sebagai smoothie base dengan tambahan granola.</p>
           </div>
         </div>
       </div>
 
       <!-- Kategori C: Yogurt Stick -->
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1c452d2c4-2c5d-4e49-b81f-fdf6a0cb49d6.png" alt="Yogurt Stick" class="rounded-3xl shadow-lg" onerror="this.src='https://placehold.co/500x350/ffd6e8/1f2937?text=Yogurt+Stick'"/>
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1c452d2c4-2c5d-4e49-b81f-fdf6a0cb49d6.png" alt="Yogurt Stick" class="rounded-3xl shadow-md w-full object-cover" onerror="this.src='https://placehold.co/500x350/ffd6e8/1f2937?text=Yogurt+Stick'"/>
         <div>
           <span class="chip chip-blue">Kategori C</span>
-          <h2 class="serif text-3xl font-bold mt-3 mb-2">Yogurt Stick</h2>
-          <p class="text-sm text-[#FF5FA2] font-semibold italic mb-4">"Sensasi makan yogurt dengan cara seru!"</p>
-          <p class="text-[#6B7280] mb-5 leading-relaxed">Inovasi yogurt beku dalam kemasan plastik stik yang panjang dan praktis. Dapat dikonsumsi langsung dalam bentuk cair dingin, atau dibekukan di dalam freezer untuk dinikmati layaknya es lilin yogurt sehat. Camilan favorit anak-anak yang kaya kalsium.</p>
-          <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Pilihan Kemasan:</div>
+          <h2 class="serif text-3xl font-bold mt-2 mb-1">Yogurt Stick</h2>
+          <p class="text-xs text-[#FF5FA2] font-semibold italic mb-3">"Sensasi makan yogurt dengan cara seru!"</p>
+          <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Inovasi yogurt beku dalam kemasan stik yang praktis. Dikonsumsi langsung atau dibekukan di freezer layaknya es lilin yogurt sehat.</p>
+          <div class="mb-3">
+            <div class="font-bold text-xs mb-1">Pilihan Kemasan:</div>
             <span class="chip chip-blue">Pack isi 10 stik (Mix varian)</span>
           </div>
           <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Varian Rasa:</div>
+            <div class="font-bold text-xs mb-1">Varian Rasa:</div>
             <span class="chip chip-pink">Mixed Berries</span>
             <span class="chip chip-pink">Sweet Grape</span>
             <span class="chip chip-pink">Zesty Orange</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Kategori D: Permen Susu -->
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="md:order-2">
-          <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/18e6a6e44-7d5e-4c9e-9465-af9554df852a.png" alt="Permen Susu" class="rounded-3xl shadow-lg" onerror="this.src='https://placehold.co/500x350/b8d8f2/1f2937?text=Permen+Susu'"/>
-        </div>
-        <div class="md:order-1">
-          <span class="chip chip-pink">Kategori D</span>
-          <h2 class="serif text-3xl font-bold mt-3 mb-2">Permen Susu</h2>
-          <p class="text-sm text-[#FF5FA2] font-semibold italic mb-4">"Manisnya susu, lembut di mulut."</p>
-          <p class="text-[#6B7280] mb-5 leading-relaxed">Permen susu kunyah (soft milk candy) yang lembut, manis, dan bertekstur kenyal. Dibuat dengan mengurangi kadar air susu sapi segar murni dan dicampur dengan gula alami tanpa pemanis buatan.</p>
-          <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Pilihan Kemasan:</div>
-            <span class="chip chip-pink">Pouch 50g</span>
-            <span class="chip chip-pink">Pouch 150g</span>
-          </div>
-          <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Varian Rasa:</div>
-            <span class="chip chip-blue">Milky Original</span>
-            <span class="chip chip-blue">Choco Milk</span>
-            <span class="chip chip-blue">Melon Creamy</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Kategori E: Stik Susu -->
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <img src="https://image.qwenlm.ai/public_source/96b46000-244a-4e37-9da6-a5c1349849ba/1ebc9bec7-27d6-4d57-acd3-b3955085e159.png" alt="Stik Susu" class="rounded-3xl shadow-lg" onerror="this.src='https://placehold.co/500x350/ffd6e8/1f2937?text=Stik+Susu'"/>
-        <div>
-          <span class="chip chip-blue">Kategori E</span>
-          <h2 class="serif text-3xl font-bold mt-3 mb-2">Stik Susu (Milk Crispy Sticks)</h2>
-          <p class="text-sm text-[#FF5FA2] font-semibold italic mb-4">"Kue kering renyah dengan kebaikan susu."</p>
-          <p class="text-[#6B7280] mb-5 leading-relaxed">Camilan kue kering berbentuk stik tipis memanjang yang diolah dari campuran tepung gandum berkualitas tinggi, mentega murni, dan susu kental buatan kami sendiri. Dipanggang hingga mencapai kerenyahan maksimal.</p>
-          <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Pilihan Kemasan:</div>
-            <span class="chip chip-blue">Jar 200g</span>
-            <span class="chip chip-blue">Pouch 100g</span>
-          </div>
-          <div class="mb-4">
-            <div class="font-bold text-sm mb-2">Varian Rasa:</div>
-            <span class="chip chip-pink">Original Cheese</span>
-            <span class="chip chip-pink">Sweet Butter</span>
           </div>
         </div>
       </div>
@@ -606,112 +888,77 @@
 
 <!-- ============ HALAMAN 4: KEUNGGULAN & KEMITRAAN ============ -->
 <div id="page-features" class="page">
-  <section class="pt-32 pb-20 cta-banner text-white">
+  <section class="pt-28 pb-16 cta-banner text-white">
     <div class="max-w-5xl mx-auto px-6 text-center">
-      <div class="text-sm font-semibold uppercase tracking-widest mb-3 opacity-90">Keunggulan & Kemitraan</div>
-      <h1 class="serif text-4xl md:text-5xl font-bold mb-6">Bergabung dengan Mouwmilk</h1>
-      <p class="text-lg opacity-95">Peluang bisnis saling menguntungkan dengan brand olahan susu terpercaya.</p>
+      <div class="text-xs font-semibold uppercase tracking-widest mb-2 opacity-90">Keunggulan & Kemitraan</div>
+      <h1 class="serif text-4xl md:text-5xl font-bold mb-4">Bergabung dengan Mouwmilk</h1>
+      <p class="text-base opacity-95">Peluang bisnis saling menguntungkan dengan brand olahan susu terpercaya.</p>
     </div>
   </section>
 
-  <section class="py-28 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#FF5FA2]">USP Kami</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Keunggulan Kompetitif</h2>
-        <p class="text-[#6B7280] mt-4 max-w-2xl mx-auto">Empat pilar utama yang membuat Mouwmilk berbeda dari brand olahan susu lainnya di Indonesia.</p>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="usp-card">
           <div class="usp-num">01</div>
-          <div class="w-14 h-14 rounded-2xl icon-circle-pink flex items-center justify-center text-2xl mb-4">🥛</div>
-          <h3 class="font-bold text-xl mb-2 pr-16">Pure From The Source</h3>
-          <p class="text-sm text-[#FF5FA2] font-semibold mb-3">100% Susu Segar Pilihan</p>
-          <p class="text-[#6B7280] text-sm leading-relaxed">Kami tidak menggunakan susu bubuk rekonsiliasi. Bahan dasar kami adalah susu cair segar yang langsung diperas di hari produksi untuk menjaga bio-aktivitas nutrisinya. Setiap tetes susu melewati uji kualitas ketat sebelum masuk ke lini produksi.</p>
+          <div class="w-12 h-12 rounded-2xl icon-circle-pink flex items-center justify-center text-xl mb-4">🥛</div>
+          <h3 class="font-bold text-lg mb-1 pr-12">Pure From The Source</h3>
+          <p class="text-xs text-[#FF5FA2] font-semibold mb-2">100% Susu Segar Pilihan</p>
+          <p class="text-[#6B7280] text-sm leading-relaxed">Bahan dasar kami adalah susu cair segar yang langsung diperas di hari produksi untuk menjaga kebaikan nutrisinya.</p>
         </div>
         <div class="usp-card">
           <div class="usp-num">02</div>
-          <div class="w-14 h-14 rounded-2xl icon-circle-blue flex items-center justify-center text-2xl mb-4">🏭</div>
-          <h3 class="font-bold text-xl mb-2 pr-16">Clean & Safe Production</h3>
-          <p class="text-sm text-[#2E6FB8] font-semibold mb-3">Higienitas Maksimal</p>
-          <p class="text-[#6B7280] text-sm leading-relaxed">Pabrik kami menerapkan standar GMP (Good Manufacturing Practices) dan dipantau berkala untuk memastikan tidak ada kontaminasi silang selama proses pengolahan. Tim quality control independen melakukan inspeksi rutin setiap minggu.</p>
-        </div>
-        <div class="usp-card">
-          <div class="usp-num">03</div>
-          <div class="w-14 h-14 rounded-2xl icon-circle-pink flex items-center justify-center text-2xl mb-4">🤝</div>
-          <h3 class="font-bold text-xl mb-2 pr-16">Local Community Support</h3>
-          <p class="text-sm text-[#FF5FA2] font-semibold mb-3">Keadilan untuk Peternak</p>
-          <p class="text-[#6B7280] text-sm leading-relaxed">Setiap botol Mouwmilk yang Anda minum berkontribusi langsung pada program beasiswa anak-anak peternak mitra dan penyediaan pakan sapi bernutrisi tinggi di pedesaan. Kami percaya kesejahteraan peternak adalah fondasi kualitas produk kami.</p>
-        </div>
-        <div class="usp-card">
-          <div class="usp-num">04</div>
-          <div class="w-14 h-14 rounded-2xl icon-circle-blue flex items-center justify-center text-2xl mb-4">🌱</div>
-          <h3 class="font-bold text-xl mb-2 pr-16">Eco-Friendly Commitment</h3>
-          <p class="text-sm text-[#2E6FB8] font-semibold mb-3">Ramah Lingkungan</p>
-          <p class="text-[#6B7280] text-sm leading-relaxed">Meminimalisir limbah produksi dan terus bertransisi menggunakan kemasan ramah lingkungan secara bertahap. Target kami 100% kemasan dapat didaur ulang pada tahun 2028, dengan pengurangan jejak karbon 40% dari tahun 2024.</p>
+          <div class="w-12 h-12 rounded-2xl icon-circle-blue flex items-center justify-center text-xl mb-4">🏭</div>
+          <h3 class="font-bold text-lg mb-1 pr-12">Clean & Safe Production</h3>
+          <p class="text-xs text-[#2E6FB8] font-semibold mb-2">Higienitas Maksimal</p>
+          <p class="text-[#6B7280] text-sm leading-relaxed">Pabrik kami menerapkan standar GMP untuk memastikan tidak ada kontaminasi silang selama proses pengolahan.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Program Kemitraan -->
-  <section class="py-28 section-soft">
+  <section class="py-20 section-soft">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#FF5FA2]">Win-Win Solution</div>
         <div class="divider"></div>
         <h2 class="serif text-3xl md:text-4xl font-bold">Program Kemitraan</h2>
-        <p class="text-[#6B7280] mt-4 max-w-2xl mx-auto">Membuka peluang bisnis dengan skema yang saling menguntungkan. Pilih program yang paling sesuai dengan kapasitas dan target pasar Anda.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         <div class="partnership-card">
-          <div>
-            <div class="partnership-icon">🤝</div>
-            <h3 class="font-bold text-xl mb-2">Reseller & Agen Resmi</h3>
-            <p class="text-sm text-[#FF5FA2] font-semibold mb-3">Untuk Perorangan/Rumah Tangga</p>
-            <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Dapatkan penghasilan tambahan dari rumah dengan menjual produk Mouwmilk yang sangat diminati para ibu untuk anak-anak mereka. Cocok untuk ibu rumah tangga, mahasiswa, atau siapa saja yang ingin memulai bisnis sampingan.</p>
-          </div>
-          <div class="border-t border-[#F0F2F5] pt-4 mt-4">
-            <div class="font-bold text-sm mb-2">Fasilitas yang Didapat:</div>
-            <ul class="text-sm text-[#6B7280] space-y-2">
-              <li>✓ Diskon khusus agen hingga 30%</li>
-              <li>✓ Materi promosi digital lengkap</li>
-              <li>✓ Pembinaan cara berjualan online</li>
-            </ul>
-          </div>
+          <div class="text-3xl mb-3">🤝</div>
+          <h3 class="font-bold text-lg mb-1">Reseller & Agen Resmi</h3>
+          <p class="text-xs text-[#FF5FA2] font-semibold mb-3">Untuk Perorangan / Rumah Tangga</p>
+          <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Dapatkan penghasilan tambahan dari rumah dengan menjual produk Mouwmilk yang sangat diminati pasar.</p>
+          <ul class="text-xs text-[#6B7280] space-y-1.5 border-t border-[#F0F2F5] pt-3">
+            <li>✓ Diskon khusus agen</li>
+            <li>✓ Materi promosi digital</li>
+          </ul>
         </div>
         <div class="partnership-card">
-          <div>
-            <div class="partnership-icon">🏢</div>
-            <h3 class="font-bold text-xl mb-2">Distributor Wilayah</h3>
-            <p class="text-sm text-[#2E6FB8] font-semibold mb-3">Satu Distributor Per Kota/Kabupaten</p>
-            <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Hak eksklusif distribusi produk Mouwmilk untuk menyuplai toko kelontong, supermarket lokal, dan jaringan reseller di wilayah kekuasaan Anda. Peluang besar dengan proteksi pasar yang jelas.</p>
-          </div>
-          <div class="border-t border-[#F0F2F5] pt-4 mt-4">
-            <div class="font-bold text-sm mb-2">Fasilitas yang Didapat:</div>
-            <ul class="text-sm text-[#6B7280] space-y-2">
-              <li>✓ Harga pabrik termurah</li>
-              <li>✓ Proteksi wilayah eksklusif</li>
-              <li>✓ Bantuan kampanye digital lokal</li>
-            </ul>
-          </div>
+          <div class="text-3xl mb-3">🏢</div>
+          <h3 class="font-bold text-lg mb-1">Distributor Wilayah</h3>
+          <p class="text-xs text-[#2E6FB8] font-semibold mb-3">Satu Distributor Per Kota</p>
+          <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Hak eksklusif distribusi produk Mouwmilk untuk menyuplai toko dan supermarket di wilayah Anda.</p>
+          <ul class="text-xs text-[#6B7280] space-y-1.5 border-t border-[#F0F2F5] pt-3">
+            <li>✓ Harga pabrik termurah</li>
+            <li>✓ Proteksi wilayah eksklusif</li>
+          </ul>
         </div>
         <div class="partnership-card">
-          <div>
-            <div class="partnership-icon">☕</div>
-            <h3 class="font-bold text-xl mb-2">Supply B2B</h3>
-            <p class="text-sm text-[#FF5FA2] font-semibold mb-3">Untuk Kafe, Restoran, & Hotel</p>
-            <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Penyediaan bahan baku susu pasteurisasi berkualitas tinggi dan yogurt massal untuk kebutuhan menu kuliner bisnis Anda secara terjadwal. Solusi tepat untuk meningkatkan kualitas menu Anda.</p>
-          </div>
-          <div class="border-t border-[#F0F2F5] pt-4 mt-4">
-            <div class="font-bold text-sm mb-2">Fasilitas yang Didapat:</div>
-            <ul class="text-sm text-[#6B7280] space-y-2">
-              <li>✓ Pengiriman armada berpendingin</li>
-              <li>✓ Harga grosir volume besar yang stabil</li>
-              <li>✓ Kontrak pasokan jangka panjang</li>
-            </ul>
-          </div>
+          <div class="text-3xl mb-3">☕</div>
+          <h3 class="font-bold text-lg mb-1">Supply B2B</h3>
+          <p class="text-xs text-[#FF5FA2] font-semibold mb-3">Untuk Kafe & Hotel</p>
+          <p class="text-[#6B7280] text-sm mb-4 leading-relaxed">Penyediaan bahan baku susu pasteurisasi dan yogurt berkadar tinggi untuk menu usaha Anda.</p>
+          <ul class="text-xs text-[#6B7280] space-y-1.5 border-t border-[#F0F2F5] pt-3">
+            <li>✓ Pengiriman armada berpendingin</li>
+            <li>✓ Harga grosir stabil</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -720,104 +967,91 @@
 
 <!-- ============ HALAMAN 5: KONTAK & FAQ ============ -->
 <div id="page-contact" class="page">
-  <section class="pt-32 pb-20 cta-banner text-white">
+  <section class="pt-28 pb-16 cta-banner text-white">
     <div class="max-w-5xl mx-auto px-6 text-center">
-      <div class="text-sm font-semibold uppercase tracking-widest mb-3 opacity-90">Hubungi Kami</div>
-      <h1 class="serif text-4xl md:text-5xl font-bold mb-6">Kami Senang Mendengar dari Anda</h1>
-      <p class="text-lg opacity-95">Pertanyaan, kerjasama, atau sekadar menyapa — kami siap membantu.</p>
+      <div class="text-xs font-semibold uppercase tracking-widest mb-2 opacity-90">Hubungi Kami</div>
+      <h1 class="serif text-4xl md:text-5xl font-bold mb-4">Kami Senang Mendengar dari Anda</h1>
+      <p class="text-base opacity-95">Pertanyaan, kerjasama, atau pemesanan — kami siap membantu.</p>
     </div>
   </section>
 
-  <section class="py-28 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
       <!-- Info Kontak -->
       <div>
         <div class="section-label text-[#FF5FA2]">Informasi Kontak</div>
-        <h2 class="serif text-3xl font-bold mb-8">Mari Terhubung</h2>
+        <h2 class="serif text-3xl font-bold mb-6">Mari Terhubung</h2>
         <div class="space-y-4">
-          <div class="contact-card flex gap-4">
-            <div class="w-12 h-12 rounded-2xl icon-circle-pink flex items-center justify-center text-xl shrink-0">📍</div>
+          <div class="contact-card flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl icon-circle-pink flex items-center justify-center text-lg shrink-0">📍</div>
             <div>
-              <div class="font-bold mb-1">Alamat Kantor Pusat & Pabrik</div>
-              <div class="text-[#6B7280] text-sm">Dusun Penawangan, RT.02/RW.01, Penawangan, Tawangsari, Kec. Wonosobo, Kabupaten Wonosobo, Jawa Tengah 56313</div>
+              <div class="font-bold text-sm mb-0.5">Alamat Pabrik & Kantor</div>
+              <div class="text-[#6B7280] text-xs leading-relaxed">Dusun Penawangan, RT.02/RW.01, Tawangsari, Kec. Wonosobo, Jawa Tengah 56313</div>
             </div>
           </div>
-          <div class="contact-card flex gap-4">
-            <div class="w-12 h-12 rounded-2xl icon-circle-blue flex items-center justify-center text-xl shrink-0">💬</div>
+          <div class="contact-card flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl icon-circle-blue flex items-center justify-center text-lg shrink-0">💬</div>
             <div>
-              <div class="font-bold mb-1">Hotline WhatsApp</div>
-              <div class="text-[#6B7280] text-sm">+62 822-3485-1377<br/>Layanan aktif setiap Senin - Sabtu</div>
+              <div class="font-bold text-sm mb-0.5">Hotline WhatsApp</div>
+              <div class="text-[#6B7280] text-xs">+62 822-3485-1377 (Senin - Sabtu)</div>
             </div>
           </div>
-          <div class="contact-card flex gap-4">
-            <div class="w-12 h-12 rounded-2xl icon-circle-pink flex items-center justify-center text-xl shrink-0">✉️</div>
+          <div class="contact-card flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl icon-circle-pink flex items-center justify-center text-lg shrink-0">✉️</div>
             <div>
-              <div class="font-bold mb-1">Surel Resmi</div>
-              <div class="text-[#6B7280] text-sm">
-                Umum & Kemitraan: <a href="mailto:mouwmilk.indo@gmail.com" class="text-[#FF5FA2]">mouwmilk.indo@gmail.com</a>
-              </div>
-            </div>
-          </div>
-          <div class="contact-card flex gap-4">
-            <div class="w-12 h-12 rounded-2xl icon-circle-blue flex items-center justify-center text-xl shrink-0">📸</div>
-            <div>
-              <div class="font-bold mb-1">Media Sosial</div>
-              <div class="text-[#6B7280] text-sm">Instagram: @mouwmilk.id<br/>TikTok: @mouwmilk.idn</div>
+              <div class="font-bold text-sm mb-0.5">Surel Resmi</div>
+              <div class="text-[#6B7280] text-xs">mouwmilk.indo@gmail.com</div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Formulir -->
-      <div class="bg-gradient-to-br from-[#FFF0F7] to-[#EEF6FD] rounded-3xl p-8">
-        <h2 class="serif text-2xl font-bold mb-6">Kirim Pesan</h2>
-        <form onsubmit="submitForm(event)" class="space-y-4">
+      <div class="bg-gradient-to-br from-[#FFF0F7] to-[#EEF6FD] rounded-3xl p-6 md:p-8">
+        <h3 class="serif text-2xl font-bold mb-6">Kirim Pesan</h3>
+        <form id="contact-form" onsubmit="submitForm(event)" class="space-y-4">
           <div>
-            <label class="block text-sm font-semibold mb-1">Nama Lengkap</label>
+            <label class="block text-xs font-semibold mb-1">Nama Lengkap</label>
             <input type="text" id="contact_name" required class="form-input" placeholder="Nama Anda"/>
           </div>
           <div>
-            <label class="block text-sm font-semibold mb-1">Alamat Email Aktif</label>
+            <label class="block text-xs font-semibold mb-1">Email Aktif</label>
             <input type="email" id="contact_email" required class="form-input" placeholder="email@contoh.com"/>
           </div>
           <div>
-            <label class="block text-sm font-semibold mb-1">Nomor Telepon/WhatsApp</label>
+            <label class="block text-xs font-semibold mb-1">Nomor WhatsApp</label>
             <input type="tel" id="contact_phone" required class="form-input" placeholder="+62..."/>
           </div>
           <div>
-            <label class="block text-sm font-semibold mb-1">Jenis Keperluan</label>
+            <label class="block text-xs font-semibold mb-1">Jenis Keperluan</label>
             <select id="contact_subject" required class="form-input">
-              <option value="">Pilih...</option>
+              <option value="">Pilih keperluan...</option>
               <option value="Pertanyaan Umum">Pertanyaan Umum</option>
-              <option value="Komplain Produk">Komplain Produk</option>
               <option value="Pendaftaran Reseller">Pendaftaran Reseller</option>
               <option value="Kerjasama B2B">Kerjasama B2B</option>
             </select>
           </div>
           <div>
-            <label class="block text-sm font-semibold mb-1">Isi Pesan</label>
-            <textarea id="contact_message" required class="form-input" rows="4" placeholder="Tulis pesan Anda..."></textarea>
+            <label class="block text-xs font-semibold mb-1">Pesan</label>
+            <textarea id="contact_message" required class="form-input" rows="3" placeholder="Tulis pesan Anda..."></textarea>
           </div>
-          <button type="submit" class="btn-primary w-full">Kirim Pesan Sekarang</button>
+          <button type="submit" class="btn-primary w-full py-3 text-sm">Kirim Pesan Sekarang</button>
         </form>
       </div>
     </div>
   </section>
 
   <!-- Peta Lokasi -->
-  <section class="py-28 section-soft">
+  <section class="py-20 section-soft">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-12">
+      <div class="text-center mb-8">
         <div class="section-label text-[#2E6FB8]">Lokasi Kami</div>
         <div class="divider"></div>
-        <h2 class="serif text-3xl md:text-4xl font-bold">Kunjungi Kantor & Pabrik Kami</h2>
-        <p class="text-[#6B7280] mt-4 max-w-2xl mx-auto">Kami dengan senang hati menerima kunjungan Anda. Silakan buat janji kunjungan terlebih dahulu melalui WhatsApp atau email.</p>
-        <div class="mt-6 mb-6">
-          <a href="https://maps.app.goo.gl/sDoBUKYUsvcnnd1v9" target="_blank" class="btn-secondary text-sm inline-flex items-center gap-2">🗺️ Buka di Google Maps</a>
-        </div>
+        <h2 class="serif text-3xl font-bold">Peta Wilayah Wonosobo</h2>
       </div>
       <div class="map-container">
         <iframe 
+          title="Lokasi Mouwmilk Indonesia"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.1706606014457!2d109.91470387588383!3d-7.334710092673891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e700b651bc97851%3A0x8e5f3f0fc4c94f1c!2sPenawangan%2C%20Tawangsari%2C%20Kec.%20Wonosobo%2C%20Kabupaten%20Wonosobo%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1710000000000"
           width="100%" 
           height="100%" 
@@ -830,128 +1064,155 @@
   </section>
 
   <!-- FAQ -->
-  <section class="py-28 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="section-label text-[#FF5FA2]">FAQ</div>
         <div class="divider"></div>
-        <h2 class="serif text-3xl md:text-4xl font-bold">Pertanyaan yang Sering Diajukan</h2>
-        <p class="text-[#6B7280] mt-4">Temukan jawaban atas pertanyaan umum seputar produk dan layanan kami di bawah ini.</p>
+        <h2 class="serif text-3xl font-bold">Pertanyaan Umum</h2>
       </div>
       <div class="space-y-3">
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span>Apakah produk yogurt Mouwmilk aman untuk anak usia di bawah 1 tahun?</span>
+            <span>Apakah produk yogurt Mouwmilk aman untuk balita?</span>
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-answer">
-            <p class="text-[#6B7280]">Kami menyarankan pemberian yogurt kepada anak setelah berusia 1 tahun atau setelah berkonsultasi dengan dokter anak Anda, karena sistem pencernaan bayi di bawah 1 tahun masih berkembang.</p>
+            <p class="text-[#6B7280] text-sm leading-relaxed">Disarankan untuk anak berusia di atas 1 tahun atau setelah berkonsultasi dengan dokter anak.</p>
           </div>
         </div>
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span>Mengapa susu pasteurisasi Mouwmilk memiliki masa kadaluarsa yang cukup singkat?</span>
+            <span>Mengapa daya tahan susu pasteurisasi relatif singkat?</span>
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-answer">
-            <p class="text-[#6B7280]">Karena kami berkomitmen penuh menjaga kesegaran alami produk tanpa menambahkan bahan pengawet kimia. Susu pasteurisasi segar memang sensitif terhadap suhu dan membutuhkan penyimpanan dingin yang konstan.</p>
+            <p class="text-[#6B7280] text-sm leading-relaxed">Karena kami murni tidak menggunakan bahan pengawet kimia sintetis. Susu harus selalu disimpan di suhu dingin (2°C-4°C).</p>
           </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span>Bagaimana cara memastikan kualitas produk tetap terjaga selama pengiriman?</span>
-            <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            <p class="text-[#6B7280]">Untuk pengiriman luar kota khusus produk sensitif dingin (susu & yogurt), kami mewajibkan pengiriman instan/sameday dengan menggunakan box styrofoam khusus yang dilengkapi dengan dry ice/ice pack beku.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span>Apakah stik susu dan permen susu Mouwmilk mengandung gluten?</span>
-            <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            <p class="text-[#6B7280]">Permen susu kami bebas gluten. Namun, untuk Stik Susu (kue kering) kami menggunakan tepung terigu biasa sehingga mengandung gluten gandum.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Akhir -->
-  <section class="py-20 cta-banner text-white">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="serif text-3xl md:text-4xl font-bold mb-4">Siap Bergabung dengan Keluarga Mouwmilk?</h2>
-      <p class="text-lg opacity-95 mb-8">Hubungi kami sekarang untuk pertanyaan, pemesanan, atau peluang kemitraan.</p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="https://wa.me/6282234851377" target="_blank" class="bg-white text-[#FF5FA2] px-8 py-4 rounded-full font-semibold hover:bg-[#FFF0F7] transition">💬 Chat WhatsApp Sekarang</a>
-        <a href="mailto:mouwmilk.indo@gmail.com" class="bg-transparent text-white px-8 py-4 rounded-full font-semibold border-2 border-white hover:bg-white hover:text-[#FF5FA2] transition">✉️ Kirim Email</a>
       </div>
     </div>
   </section>
 </div>
 
 <!-- FOOTER -->
-<footer class="bg-[#1F2937] text-white py-16">
+<footer class="bg-[#1F2937] text-white py-12">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="grid md:grid-cols-4 gap-8 mb-10">
+    <div class="grid md:grid-cols-4 gap-8 mb-8">
       <div>
-        <div class="flex items-center gap-2.5 mb-4">
-          <img src="mouwmilk logo_2.png" alt="Mouwmilk Logo" class="h-10 w-auto object-contain bg-white p-1 rounded-lg" onerror="this.src='https://placehold.co/40x40/ffd6e8/1f2937?text=M'" />
-          <div>
-            <div class="font-bold text-lg">Mouwmilk</div>
-            <div class="text-xs text-white/60">Indonesia</div>
-          </div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-lg logo-mark flex items-center justify-center text-white font-bold text-sm">M</div>
+          <span class="font-bold text-lg">Mouwmilk</span>
         </div>
-        <p class="text-white/70 text-sm">Kemurnian susu segar, kelezatan tiada tara untuk keluarga Indonesia.</p>
+        <p class="text-white/70 text-xs leading-relaxed">Kemurnian susu segar, kelezatan tiada tara untuk keluarga Indonesia.</p>
       </div>
       <div>
-        <h4 class="font-bold mb-4 text-[#FFD6E8]">Navigasi</h4>
-        <ul class="space-y-2 text-white/70 text-sm">
+        <h4 class="font-bold mb-3 text-[#FFD6E8] text-sm">Navigasi</h4>
+        <ul class="space-y-1.5 text-white/70 text-xs">
           <li><a href="#" onclick="showPage('home')" class="hover:text-white">Beranda</a></li>
           <li><a href="#" onclick="showPage('about')" class="hover:text-white">Tentang Kami</a></li>
           <li><a href="#" onclick="showPage('products')" class="hover:text-white">Produk Kami</a></li>
-          <li><a href="#" onclick="showPage('features')" class="hover:text-white">Keunggulan</a></li>
           <li><a href="#" onclick="showPage('contact')" class="hover:text-white">Kontak</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-bold mb-4 text-[#B8D8F2]">Kontak</h4>
-        <ul class="space-y-2 text-white/70 text-sm">
+        <h4 class="font-bold mb-3 text-[#B8D8F2] text-sm">Kontak</h4>
+        <ul class="space-y-1.5 text-white/70 text-xs">
           <li>📍 Tawangsari, Wonosobo</li>
           <li>📱 +62 822-3485-1377</li>
           <li>✉️ mouwmilk.indo@gmail.com</li>
-          <li>🕐 Senin - Sabtu, 08.00 - 17.00</li>
         </ul>
       </div>
       <div>
-        <h4 class="font-bold mb-4 text-[#FFD6E8]">Ikuti Kami</h4>
-        <div class="flex gap-3">
-          <a href="https://instagram.com/mouwmilk.id" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#FF5FA2] transition">📸</a>
-          <a href="https://tiktok.com/@mouwmilk.idn" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#4A90D9] transition">🎵</a>
-          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#FF5FA2] transition">💬</a>
-        </div>
-        <p class="text-white/60 text-xs mt-4">Instagram: @mouwmilk.id<br/>TikTok: @mouwmilk.idn</p>
+        <h4 class="font-bold mb-3 text-[#FFD6E8] text-sm">Sosial Media</h4>
+        <p class="text-white/70 text-xs mb-2">Instagram: @mouwmilk.id</p>
+        <p class="text-white/70 text-xs">TikTok: @mouwmilk.idn</p>
       </div>
     </div>
-    <div class="border-t border-white/10 pt-6 text-center text-white/60 text-sm">
-      Hak Cipta © 2026 Mouwmilk Indonesia. Hak Cipta Dilindungi Undang-Undang.
+    <div class="border-t border-white/10 pt-6 text-center text-white/50 text-xs">
+      © 2026 Mouwmilk Indonesia. All Rights Reserved.
     </div>
   </div>
 </footer>
 
-<!-- CUSTOM MODAL SUCCESS BANNER -->
+<!-- MODAL SUCCESS BANNER -->
 <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 opacity-0 pointer-events-none transition-all duration-300">
-  <div class="bg-white rounded-3xl p-8 max-w-md mx-4 shadow-2xl text-center transform scale-95 transition-transform duration-300" id="success-modal-content">
-    <div class="w-16 h-16 rounded-full bg-green-100 text-green-500 text-3xl flex items-center justify-center mx-auto mb-4">✓</div>
-    <h3 class="text-2xl font-bold text-[#1F2937] mb-2">Terima Kasih!</h3>
-    <p class="text-[#6B7280] text-sm leading-relaxed mb-6" id="success-modal-text">Pesan Anda telah berhasil terkirim. Tim kemitraan Mouwmilk Indonesia akan segera menghubungi Anda dalam kurun waktu 1x24 jam.</p>
-    <button onclick="closeSuccessModal()" class="btn-primary w-full py-3">Tutup Jendela</button>
+  <div class="bg-white rounded-3xl p-6 max-w-sm mx-4 shadow-2xl text-center transform scale-95 transition-transform duration-300" id="success-modal-content">
+    <div class="w-12 h-12 rounded-full bg-green-100 text-green-500 text-2xl flex items-center justify-center mx-auto mb-3">✓</div>
+    <h3 class="text-xl font-bold text-[#1F2937] mb-2">Pesan Terkirim!</h3>
+    <p class="text-[#6B7280] text-xs leading-relaxed mb-5" id="success-modal-text">Terima kasih telah menghubungi Mouwmilk Indonesia. Tim kami akan segera merespons pesan Anda.</p>
+    <button onclick="closeSuccessModal()" class="btn-primary w-full py-2.5 text-xs">Tutup</button>
   </div>
 </div>
 
-<!-- Custom Javascript External -->
-<script src="script.js"></script>
+<!-- JAVASCRIPT LOGIC -->
+<script>
+  // Page Switching Handler
+  function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => p.classList.remove('active'));
+
+    const targetPage = document.getElementById('page-' + pageId);
+    if (targetPage) {
+      targetPage.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Update Active Nav Style
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.getAttribute('data-page') === pageId) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      if (link.getAttribute('data-page') === pageId) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // Mobile Drawer Toggle
+  function toggleMobile(open) {
+    const overlay = document.getElementById('mobile-overlay');
+    const drawer = document.getElementById('mobile-drawer');
+    if (open) {
+      overlay.classList.add('open');
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    } else {
+      overlay.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // FAQ Accordion Toggle
+  function toggleFaq(element) {
+    const item = element.parentElement;
+    item.classList.toggle('active');
+  }
+
+  // Contact Form Submission Mock
+  function submitForm(event) {
+    event.preventDefault();
+    const modal = document.getElementById('success-modal');
+    modal.classList.remove('pointer-events-none');
+    modal.classList.add('opacity-100');
+    
+    // Reset Form
+    document.getElementById('contact-form').reset();
+  }
+
+  function closeSuccessModal() {
+    const modal = document.getElementById('success-modal');
+    modal.classList.add('pointer-events-none');
+    modal.classList.remove('opacity-100');
+  }
+</script>
 </body>
 </html>
